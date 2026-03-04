@@ -1,6 +1,6 @@
 # Jobcan
 
-A macOS menu bar app for quick access to the [Jobcan](https://jobcan.ne.jp/) attendance management page that I'm not good at.
+A macOS menu bar app for quick access to the [Jobcan](https://jobcan.ne.jp/) attendance management page, which I find hard for me to open in a browser.
 
 > [!NOTE]
 > This project is not affiliated with the [Jobcan](https://jobcan.ne.jp/) nor [Donuts Co. Ltd](https://www.donuts.ne.jp/).
