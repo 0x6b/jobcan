@@ -12,6 +12,16 @@ final class WebViewController: NSViewController {
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.allowsContentJavaScript = true
 
+        let js = """
+            var s = document.createElement('style');
+            s.textContent = '#adit-button-push:focus { box-shadow: inset 0 0 0 5px #ccc !important; }';
+            document.head.appendChild(s);
+            var btn = document.getElementById('adit-button-push');
+            if (btn) { btn.focus(); }
+            """
+        let script = WKUserScript(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        configuration.userContentController.addUserScript(script)
+
         webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 480, height: 700), configuration: configuration)
         webView.autoresizingMask = [.width, .height]
 
