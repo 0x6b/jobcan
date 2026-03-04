@@ -8,7 +8,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var contextMenu: NSMenu!
 
     private enum Constants {
-        static let popoverSize = CGSize(width: 480, height: 700)
+        static let popoverSize = CGSize(width: 528, height: 700)
         static let iconSize = CGSize(width: 18, height: 18)
     }
 
