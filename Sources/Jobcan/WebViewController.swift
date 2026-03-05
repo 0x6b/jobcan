@@ -3,6 +3,8 @@ import WebKit
 
 final class WebViewController: NSViewController {
     private var webView: WKWebView!
+    private var reloadTimer: Timer?
+    private static let reloadInterval: TimeInterval = 29 * 60
 
     private static let loginURL = URL(
         string: "https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback"
@@ -34,6 +36,14 @@ final class WebViewController: NSViewController {
         var request = URLRequest(url: Self.loginURL)
         request.setValue("ja-JP,ja;q=0.9", forHTTPHeaderField: "Accept-Language")
         webView.load(request)
+
+        reloadTimer = Timer.scheduledTimer(withTimeInterval: Self.reloadInterval, repeats: true) { [weak self] _ in
+            self?.webView.reload()
+        }
+    }
+
+    deinit {
+        reloadTimer?.invalidate()
     }
 
     override func viewDidAppear() {
