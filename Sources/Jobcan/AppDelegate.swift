@@ -4,6 +4,7 @@ import ServiceManagement
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private let popover = NSPopover()
+    private let webViewController = WebViewController()
     private var hotkeyManager: HotkeyManager?
     private var contextMenu: NSMenu!
 
@@ -43,7 +44,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func configurePopover() {
         popover.contentSize = Constants.popoverSize
         popover.behavior = .transient
-        popover.contentViewController = WebViewController()
+        popover.contentViewController = webViewController
     }
 
     // MARK: - Context Menu
@@ -67,6 +68,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         )
         hotkeyItem.target = self
         contextMenu.addItem(hotkeyItem)
+
+        contextMenu.addItem(.separator())
+
+        let openInBrowserItem = NSMenuItem(
+            title: "ブラウザで開く",
+            action: #selector(openInBrowser(_:)),
+            keyEquivalent: ""
+        )
+        openInBrowserItem.target = self
+        contextMenu.addItem(openInBrowserItem)
 
         contextMenu.addItem(.separator())
 
@@ -125,6 +136,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func toggleGlobalShortcut(_ sender: NSMenuItem) {
         guard let hotkeyManager else { return }
         hotkeyManager.setEnabled(!hotkeyManager.isEnabled)
+    }
+
+    @objc private func openInBrowser(_ sender: Any?) {
+        guard let url = webViewController.currentURL else { return }
+        NSWorkspace.shared.open(url)
     }
 
     @objc private func statusItemClicked(_ sender: Any?) {

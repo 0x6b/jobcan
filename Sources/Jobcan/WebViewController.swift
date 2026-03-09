@@ -51,4 +51,6 @@ final class WebViewController: NSViewController {
         view.window?.makeKey()
         webView.becomeFirstResponder()
     }
+
+    var currentURL: URL? { webView?.url }
 }
