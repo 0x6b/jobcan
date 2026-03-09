@@ -24,7 +24,7 @@ final class WebViewController: NSViewController {
         let script = WKUserScript(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         configuration.userContentController.addUserScript(script)
 
-        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 480, height: 700), configuration: configuration)
+        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 960, height: 700), configuration: configuration)
         webView.autoresizingMask = [.width, .height]
 
         view = webView
