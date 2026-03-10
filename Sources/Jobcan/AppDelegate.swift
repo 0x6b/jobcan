@@ -22,6 +22,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         hotkeyManager = HotkeyManager { [weak self] in
             self?.togglePopover()
         }
+
+        updateTooltip()
     }
 
     // MARK: - Status Item
@@ -35,7 +37,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         button.image = icon
         button.target = self
         button.action = #selector(statusItemClicked(_:))
-        button.toolTip = "Jobcan (⌥⌃J)"
+        button.toolTip = "Jobcan"
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
 
@@ -136,6 +138,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func toggleGlobalShortcut(_ sender: NSMenuItem) {
         guard let hotkeyManager else { return }
         hotkeyManager.setEnabled(!hotkeyManager.isEnabled)
+        updateTooltip()
+    }
+
+    private func updateTooltip() {
+        statusItem.button?.toolTip = hotkeyManager?.isEnabled == true ? "Jobcan (⌥⌃J)" : "Jobcan"
     }
 
     @objc private func openInBrowser(_ sender: Any?) {
