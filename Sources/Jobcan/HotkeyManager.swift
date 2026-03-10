@@ -4,10 +4,14 @@ final class HotkeyManager {
     private var hotkeyRef: EventHotKeyRef?
     private var handlerRef: EventHandlerRef?
     private let callback: () -> Void
+    private static let enabledKey = "HotkeyEnabled"
     private(set) var isEnabled: Bool = false
 
     init(callback: @escaping () -> Void) {
         self.callback = callback
+        if UserDefaults.standard.bool(forKey: Self.enabledKey) {
+            registerHotkey()
+        }
     }
 
     deinit {
@@ -20,6 +24,7 @@ final class HotkeyManager {
         } else {
             unregisterHotkey()
         }
+        UserDefaults.standard.set(isEnabled, forKey: Self.enabledKey)
     }
 
     private func unregisterHotkey() {
