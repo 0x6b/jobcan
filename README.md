@@ -37,8 +37,6 @@ Sources/Jobcan/
 Resources/
   Info.plist              # LSUIElement=true (hidden from Dock)
   AppIcon.icns            # App icon
-  menubar_icon.png        # Menu bar icon
-  menubar_icon@2x.png     # Menu bar icon (Retina)
 ```
 
 ## Usage
