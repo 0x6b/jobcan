@@ -12,6 +12,7 @@ final class WebViewController: NSViewController {
 
     override func loadView() {
         let configuration = WKWebViewConfiguration()
+        configuration.websiteDataStore = WKWebsiteDataStore.default()
         configuration.defaultWebpagePreferences.allowsContentJavaScript = true
 
         let js = """
