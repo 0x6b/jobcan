@@ -27,6 +27,8 @@ final class WebViewController: NSViewController {
 
         webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 960, height: 700), configuration: configuration)
         webView.autoresizingMask = [.width, .height]
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
 
         view = webView
     }
@@ -54,4 +56,32 @@ final class WebViewController: NSViewController {
     }
 
     var currentURL: URL? { webView?.url }
+}
+
+// MARK: - WKUIDelegate
+
+extension WebViewController: WKUIDelegate {
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        if navigationAction.targetFrame == nil || navigationAction.targetFrame?.isMainFrame == false {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
+}
+
+// MARK: - WKNavigationDelegate
+
+extension WebViewController: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        decisionHandler(.allow)
+    }
 }
